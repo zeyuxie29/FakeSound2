@@ -1,0 +1,52 @@
+base_path: &base_path "data/test"
+test_files:
+  genuine: &genuine "${base_path}/genuine.jsonl"
+
+  # generate
+  generation_inDomain: &gen_aff "${base_path}/generation_affusion.jsonl"
+  generation_outDomain: &gen_x2 "${base_path}/generation_x2audio.jsonl"
+
+  # edit
+  edit_inDomain: &edit_editor "${base_path}/editing_audioeditor.jsonl"
+  edit_outDomain: &edit_audit "${base_path}/editing_audit.jsonl"
+
+  # inpainting
+  inpainting_inDomain: &inpainting_inDomain
+    - &inpainting_tango2 "${base_path}/inpainting_tango2.jsonl"
+    - &inpainting_affusion "${base_path}/inpainting_affusion.jsonl"
+    - &inpainting_ldm2 "${base_path}/inpainting_ldm2.jsonl"
+
+  inpainting_outDomain: &inpainting_outDomain
+    - &inpainting_makeanaudio "${base_path}/inpainting_makeanaudio.jsonl"
+    - &inpainting_zeroshot "${base_path}/inpainting_fakesound1zeroshot.jsonl"
+    - &inpainting_easy "${base_path}/inpainting_fakesound1easy.jsonl"
+    - &inpainting_hard "${base_path}/inpainting_fakesound1hard.jsonl"
+  
+  # separation
+  separation_inDomain: &sep_lass "${base_path}/separation_lassnet.jsonl"
+  separation_outDomain: &sep_flow "${base_path}/separation_flowsep.jsonl"
+  
+  # manually
+  splice: &splice "${base_path}/splicing.jsonl"
+  add: &add "${base_path}/addition.jsonl"
+  
+  # all
+  inDomain_all:
+    - *genuine
+    - *inpainting_tango2
+    - *inpainting_affusion 
+    - *inpainting_ldm2
+    - *sep_lass  
+    - *edit_editor  
+    - *splice  
+    - *add  
+    - *gen_aff 
+
+  outDomain_all:
+    - *inpainting_makeanaudio
+    - *inpainting_zeroshot
+    - *inpainting_easy
+    - *inpainting_hard
+    - *sep_flow  
+    - *edit_audit  
+    - *gen_x2 
